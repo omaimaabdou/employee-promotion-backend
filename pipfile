@@ -1,0 +1,38 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "*"
+mypy = "*"
+requests = "*"
+seaborn = "*"
+ipykernel = "*"
+ipywidgets = "*"
+sphinx = "*"
+recommonmark = "*"
+sphinx-rtd-theme = "*"
+sphinx-pyreverse = "*"
+mysql-connector-python = "*"
+pylint-flask = "*"
+
+[packages]
+Sphinx = "*"
+numpy = "*"
+pandas = "*"
+flask-restful = "==0.3.8"
+sqlalchemy = "*"
+flask-sqlalchemy = "*"
+flask = "==1.1.2"
+mysql-connector-python = "*"
+bcrypt = "*"
+flask-jwt-extended = "==3.25.0"
+pymysql = "*"
+cryptography = "*"
+srt = "*"
+numpy-indexed = "*"
+wheel = "*"
+flask-mail = "*"
+flask-limiter = "*"
+icecream = "*"
