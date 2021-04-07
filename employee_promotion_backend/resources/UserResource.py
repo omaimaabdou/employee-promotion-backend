@@ -4,7 +4,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity, decode_token, cre
 import logging as log
 from flask_restful import reqparse, Resource, Api, abort
 import flask
-from models.models import *
+from ..models.models import *
 import numpy as np
 
 class UserResource(Resource):

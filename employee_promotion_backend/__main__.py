@@ -2,7 +2,7 @@
 # from .main import db
 from .config import SERVER_HOST
 from . import create_app
-from ..models.models import *
+from .models.models import *
 def init_db():
     db.create_all()
 

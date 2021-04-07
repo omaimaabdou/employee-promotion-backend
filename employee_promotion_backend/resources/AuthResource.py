@@ -8,7 +8,7 @@ import logging as log
 
 from werkzeug.exceptions import InternalServerError
 from flask_restful import reqparse, Resource, Api, abort
-from models.models import *
+from ..models.models import *
 from threading import Thread
 import bcrypt
 import datetime

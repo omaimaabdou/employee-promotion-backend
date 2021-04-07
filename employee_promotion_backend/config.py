@@ -1,14 +1,13 @@
 # config.py
 
-MYSQL_HOST = '' 
-# MYSQL_HOST = '52.47.58.236'
-MYSQL_USERNAME = 'user'
-MYSQL_PASSWORD = '6tFoWhk7gceiusNH'
-MYSQL_DATABASE = 'DB'
+MYSQL_HOST = '127.0.0.1' 
+MYSQL_USERNAME = 'root'
+MYSQL_PASSWORD = 'hahaah'
+MYSQL_DATABASE = 'rhdb'
 
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://'+MYSQL_USERNAME+':'+MYSQL_PASSWORD+'@'+MYSQL_HOST+'/'+MYSQL_DATABASE
 SERVER_HOST = '0.0.0.0'
 KEY_JWT = 'mySecret'  # Prod
 MAIL_SERVER = 'smtp.gmail.com'
 MAIL_USERNAME = 'redaabdou49@gmail.com'
-MAIL_PASSWORD = ''
+MAIL_PASSWORD = 'hahah'

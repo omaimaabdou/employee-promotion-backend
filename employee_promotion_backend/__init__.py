@@ -3,10 +3,10 @@ The entry point to the backend of our premiere plugin
 """
 from flask import Flask
 import logging as log
-from .config import MYSQL_PASSWORD,KEY_JWT,SQLALCHEMY_DATABASE_URI, MAIL_SERVER, MAIL_USERNAME, MAIL_PASSWORD, ENVIRONMENT_SENTRY
+from .config import MYSQL_PASSWORD,KEY_JWT,SQLALCHEMY_DATABASE_URI, MAIL_SERVER, MAIL_USERNAME, MAIL_PASSWORD
 from flask_jwt_extended import JWTManager
 from flask_restful import reqparse, Resource, Api, abort
-from ..models.models import *
+from .models.models import *
 log.basicConfig(format='%(levelname)s:%(message)s', level=log.DEBUG)
 import datetime
 def _create_app_and_api_objects():
