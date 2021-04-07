@@ -69,15 +69,13 @@ class AuthLoginResource(Resource):
         if not request.is_json or request.content_length >= 50_000_000:
             return flask.make_response(flask.jsonify(success=False, error={"code": 100, "message": "Please send a valid json"}), 400)
         obj = request.get_json()
-        log.debug("Debug input post : {}".format(obj))
         resultUser = checkLogin(obj)
         if resultUser != "":
-            log.debug("got user connection : {}".format(obj))
             delta = datetime.timedelta(days=1)
             access_token = create_access_token(identity=resultUser.uid, expires_delta=delta)
             userData = {
                 'username': resultUser.username,
-                'id': resultUser.uid,
+                'uid': resultUser.uid,
                 'email': resultUser.email
             }
             return flask.make_response(flask.jsonify(success=True,
@@ -88,14 +86,13 @@ class AuthLoginResource(Resource):
                                                      user=userData
                                                      ), 200)
         else:
-            log.debug("no user connection : {}".format(obj))
             return flask.make_response(flask.jsonify(success=False, error={"code": 111, "message": "User not found"}), 404)
 
     @jwt_required
     @cross_origin()
     def delete(self):
-        user_id = request.args.get('user_id')
-        user = db.session.query(User).filter_by(uid=user_id).first()
+        user_uid = request.args.get('user_uid')
+        user = db.session.query(User).filter_by(uid=user_uid).first()
         user.refresh_token = None
         db.session.commit()
         return flask.jsonify(response="Successfully logged out", success=True)

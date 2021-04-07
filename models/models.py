@@ -51,9 +51,6 @@ class User(db.Model):
             else:
                 user.email = new_info["email"]
 
-        if user.subscription_uid != new_info["subscription_uid"]:
-            user.subscription_uid = new_info["subscription_uid"]
-
         # password only has length if being changed
         if len(new_info["password"]):
             hashed = bcrypt.hashpw(new_info["password"].encode("utf-8"), bcrypt.gensalt())
