@@ -18,7 +18,7 @@ class User(db.Model):
 
     Parameters
     ---------
-    uid: int
+    uid: str
         Unique database id
     email: str
         user's unique email
@@ -64,4 +64,41 @@ class User(db.Model):
                 "username": self.username,
                 "email": self.email}
 
+class Employee(db.Model):
+    """
+    Calsse to represent an Employee in the application
+
+    Parameters
+    ---------
+    uid: str
+        Unique database id
+    email: str
+        employee's unique email
+    first_name: str
+        employee's unique first name
+    last_name: str
+        employee's unique last name
+    age : int
+       employee's age
+    degree_uid : str
+        employee's degree
+    entry_grade_uid : str 
+       employee's grade
+    seniority : int
+         employee's seniority in years
+    promotion : bool
+    promotion_grade :str
+    
+    """
+    uid = db.Column(db.String(120), primary_key=True, default=generate_uid)
+    email = db.Column(db.String(255))
+    first_name = db.Column(db.String(255))
+    last_name = db.Column(db.String(255))
+    age = db.Column(db.Integer())
+    degree_uid = db.Column(db.String(45))
+    entry_grade = db.Column(db.String(120))
+    seniority = db.Column(db.Integer())
+
+"""class Degree(db.Model):
+class Grade(db.Model):"""
 
