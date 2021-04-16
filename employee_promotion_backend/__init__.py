@@ -7,6 +7,9 @@ from .config import MYSQL_PASSWORD,KEY_JWT,SQLALCHEMY_DATABASE_URI, MAIL_SERVER,
 from flask_jwt_extended import JWTManager
 from flask_restful import reqparse, Resource, Api, abort
 from .models.models import *
+from .resources.AuthResource import *
+from .resources.EmployeeResource import *
+from .resources.UserResource import *
 log.basicConfig(format='%(levelname)s:%(message)s', level=log.DEBUG)
 import datetime
 def _create_app_and_api_objects():
@@ -32,4 +35,10 @@ def _create_app_and_api_objects():
 
 def create_app():
     app, api = _create_app_and_api_objects()
+    api.add_resource(AuthLoginResource, "/login")
+    api.add_resource(AuthForgotPassword, "/forgot")
+    api.add_resource(AuthResetPassword, "/reset")
+    api.add_resource(AuthRegisterResource, "/register")
+    api.add_resource(EmployeeResource, "/employee", "/employee/<string:employee_uid>")
+
     return app
