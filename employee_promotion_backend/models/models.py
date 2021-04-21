@@ -33,6 +33,8 @@ class User(db.Model):
     password = db.Column(db.String(255))
     token = db.Column(db.String(45))
     refresh_token = db.Column(db.String(120))
+    created_at = Column(db.DateTime(True), default=db.func.now())
+    updated_at = Column(db.DateTime(True))
 
     def update_user(self, user_uid, new_info):
         user = db.session.query(User).filter_by(uid=user_uid).first()
