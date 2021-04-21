@@ -57,7 +57,7 @@ class User(db.Model):
         if len(new_info["password"]):
             hashed = bcrypt.hashpw(new_info["password"].encode("utf-8"), bcrypt.gensalt())
             user.password = hashed.decode("utf-8")
-
+        user.updated_at = db.func.now()
         db.session.commit()
         return {"success": "True", "code": "200", "result": "User updated succesfully"}
 
