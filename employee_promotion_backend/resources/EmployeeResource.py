@@ -23,7 +23,7 @@ class EmployeeResource(Resource):
             employee = Employee(email=obj.get("email"),
                                 first_name=obj.get("first_name"),
                                 last_name=obj.get("last_name"),
-                                situation_sociale=obj.get("situation_sociale"),
+                                social_situation=obj.get("social_situation"),
                                 age=obj.get("age"),
                                 degree=obj.get("degree"),
                                 grade=obj.get("grade"),

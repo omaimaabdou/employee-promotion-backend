@@ -97,7 +97,7 @@ class Employee(db.Model):
     email = db.Column(db.String(255))
     first_name = db.Column(db.String(255))
     last_name = db.Column(db.String(255))
-    situation_sociale = db.Column(db.String(255))
+    social_situation = db.Column(db.String(255))
     entry_date = db.Column(db.DateTime(True))
     age = db.Column(db.Integer())
     degree = db.Column(db.String(45))
@@ -111,7 +111,7 @@ class Employee(db.Model):
                 "email": self.email,
                 "first_name": self.first_name,
                 "last_name": self.last_name,
-                "situation_sociale": self.situation_sociale,
+                "social_situation": self.social_situation,
                 "entry_date": self.entry_date,
                 "age": self.age,
                 "degree": self.degree,
