@@ -39,6 +39,7 @@ def create_app():
     api.add_resource(AuthForgotPassword, "/forgot")
     api.add_resource(AuthResetPassword, "/reset")
     api.add_resource(AuthRegisterResource, "/register")
+    api.add_resource(UserResource, "/user", "/user/<string:user_uid>")
     api.add_resource(EmployeeResource, "/employee", "/employee/<string:employee_uid>")
 
     return app
