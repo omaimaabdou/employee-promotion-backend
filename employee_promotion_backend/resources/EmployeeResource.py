@@ -50,3 +50,51 @@ class EmployeeResource(Resource):
         db.session.commit()
 
         return flask.jsonify(data=employee_uid, success=True, message="employee_deleted")
+
+class EmployeesResource(Resource):
+    @jwt_required
+    def post(self):
+        if not request.is_json or request.content_length >= 50_000_000:
+            return flask.make_response(flask.jsonify(success=False, error={"code": 100, "message": "Please send a valid json"}), 400)
+        obj = request.get_json()
+
+        per_page=20
+
+        if obj.get("page"):
+            page = obj.get("page")
+        else:
+            page = 1
+
+        if obj.get("keyword"):
+            employees = db.session.query(Employee).filter(Employee.last_name.ilike('%{0}%'.format(obj.get("keyword")))).order_by(text("created_at desc")).paginate(page, per_page, False)
+            total = employees.total
+            record_items = employees.items
+
+        else:
+            employees = db.session.query(Employee).order_by(text("created_at desc")).paginate(page, per_page, False)
+            total = employees.total
+            record_items = employees.items
+        
+        get_employees=[]
+
+        for employee in record_items :
+            employee_dict = {}
+
+            employee_dict["uid"] = employee.uid
+            employee_dict["email"] = employee.email
+            employee_dict["first_name"] = employee.first_name
+            employee_dict["last_name"] = employee.last_name
+            employee_dict["social_situation"] = employee.social_situation
+            employee_dict["entry_date"] = employee.entry_date
+            employee_dict["age"] = employee.age
+            employee_dict["degree"] = employee.degree
+            employee_dict["grade"] = employee.grade
+            employee_dict["grade_seniority"] = employee.grade_seniority
+            employee_dict["created_at"] = db.session.query(Employee).with_entities("created_at").first()[0].strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+            employee_dict["edited_at"] = db.session.query(Employee).with_entities("updated_at").first()[0].strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+
+            get_employees.append(employee_dict)
+
+        return flask.jsonify(data=get_employees, count=total, success=True)
+
+
