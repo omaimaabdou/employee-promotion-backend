@@ -27,14 +27,14 @@ class User(db.Model):
     password: str
         user's password for login
     """
-    uid = db.Column(db.String(120), primary_key=True, default=generate_uid)
+    uid = db.Column(db.String(255), primary_key=True, default=generate_uid)
     email = db.Column(db.String(255))
     username = db.Column(db.String(255))
     password = db.Column(db.String(255))
-    token = db.Column(db.String(45))
-    refresh_token = db.Column(db.String(120))
-    created_at = Column(db.DateTime(True), default=db.func.now())
-    updated_at = Column(db.DateTime(True))
+    token = db.Column(db.String(255))
+    refresh_token = db.Column(db.String(255))
+    created_at = db.Column(db.DateTime(True), default=db.func.now())
+    updated_at = db.Column(db.DateTime(True))
 
     def update_user(self, user_uid, new_info):
         user = db.session.query(User).filter_by(uid=user_uid).first()
@@ -93,18 +93,18 @@ class Employee(db.Model):
     seniority : int
          employee's actual grade seniority in years
     """
-    uid = db.Column(db.String(120), primary_key=True, default=generate_uid)
+    uid = db.Column(db.String(255), primary_key=True, default=generate_uid)
     email = db.Column(db.String(255))
     first_name = db.Column(db.String(255))
     last_name = db.Column(db.String(255))
     social_situation = db.Column(db.String(255))
     entry_date = db.Column(db.DateTime(True))
-    age = db.Column(db.Integer())
-    degree = db.Column(db.String(45))
-    grade = db.Column(db.String(120))
-    grade_seniority = db.Column(db.Integer())
-    created_at = Column(db.DateTime(True), default=db.func.now())
-    updated_at = Column(db.DateTime(True))
+    age = db.Column(db.Integer)
+    degree = db.Column(db.String(255))
+    grade = db.Column(db.String(255))
+    grade_seniority = db.Column(db.Integer)
+    created_at = db.Column(db.DateTime(True), default=db.func.now())
+    updated_at = db.Column(db.DateTime(True))
 
     def to_json(self):
         return {"user_uid": self.uid,
