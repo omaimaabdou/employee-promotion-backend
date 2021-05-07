@@ -27,7 +27,7 @@ class UserResource(Resource):
         user_uid = get_jwt_identity()
         userDb = User.query.filter_by(uid=user_uid).first()
         userDb.update_user(user_uid, new_info)
-        return flask.jsonify(success=True, code="", result="user_updated")
+        return flask.jsonify(success=True, result="user_updated")
 
     @jwt_required
     def delete(self, user_uid: str):
