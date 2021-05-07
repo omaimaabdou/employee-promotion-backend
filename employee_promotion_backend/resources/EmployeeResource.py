@@ -6,6 +6,8 @@ from flask_restful import reqparse, Resource, Api, abort
 import flask
 from ..models.models import *
 import numpy as np
+from sqlalchemy import asc, desc 
+from sqlalchemy.sql import text
 
 class EmployeeResource(Resource):
     @jwt_required
@@ -93,8 +95,8 @@ class EmployeesResource(Resource):
             employee_dict["degree"] = employee.degree
             employee_dict["grade"] = employee.grade
             employee_dict["grade_seniority"] = employee.grade_seniority
-            employee_dict["created_at"] = db.session.query(Employee).with_entities("created_at").first()[0].strftime("%Y-%m-%dT%H:%M:%S.%fZ")
-            employee_dict["edited_at"] = db.session.query(Employee).with_entities("updated_at").first()[0].strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+            employee_dict["created_at"] = employee.created_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+            employee_dict["updated_at"] = employee.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
             get_employees.append(employee_dict)
 
