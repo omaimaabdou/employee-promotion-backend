@@ -15,8 +15,6 @@ import datetime
 import random
 import string
 from flask_mail import Mail, Message
-from flask_limiter.util import get_remote_address
-from flask_limiter import Limiter
 import re
 from functools import wraps
 
@@ -24,11 +22,6 @@ from functools import wraps
 regex = "[^@]+@[^@]+\.[^@]{2,3}$"
 
 app = Flask(__name__)
-limiter = Limiter(
-    app,
-    key_func=get_remote_address,
-    default_limits=["3 per minute"]
-)
 
 
 

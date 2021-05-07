@@ -30,6 +30,10 @@ class EmployeeResource(Resource):
                                 grade_seniority=obj.get("grade_seniority"))
         except :
             return flask.jsonify(message="Please send all informations", success=False)
+        
+        db.session.add(employee)
+        db.session.flush()
+        db.session.commit()
         return flask.jsonify(data=employee.to_json(), success=True)
 
     @jwt_required
