@@ -42,7 +42,6 @@ class EmployeeResource(Resource):
             return flask.make_response(flask.jsonify(success=False, error={"code": 100, "message": "Please send a valid json"}), 400)
 
         obj = request.get_json()
-        obj["updated_at"]=db.func.now()
         db.session.query(Employee).filter_by(uid=employee_uid).update(obj)
         db.session.commit()
 
