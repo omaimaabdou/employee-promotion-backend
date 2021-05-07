@@ -81,7 +81,7 @@ class AuthLoginResource(Resource):
 
     @jwt_required
     def delete(self):
-        user_uid = request.args.get('user_uid')
+        user_uid = get_jwt_identity()
         user = db.session.query(User).filter_by(uid=user_uid).first()
         user.refresh_token = None
         db.session.commit()
