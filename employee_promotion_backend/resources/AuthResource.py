@@ -17,6 +17,7 @@ import string
 from flask_mail import Mail, Message
 import re
 from functools import wraps
+from flask_cors import cross_origin
 
 # for validating an Email 
 regex = "[^@]+@[^@]+\.[^@]{2,3}$"
@@ -56,6 +57,7 @@ def checkLogin(newUser):
         return user
 
 class AuthLoginResource(Resource):
+    @cross_origin()
     def post(self):
         if not request.is_json or request.content_length >= 50_000_000:
             return flask.make_response(flask.jsonify(success=False, error={"code": 100, "message": "Please send a valid json"}), 400)
@@ -80,6 +82,7 @@ class AuthLoginResource(Resource):
             return flask.make_response(flask.jsonify(success=False, error={"code": 111, "message": "User not found"}), 404)
 
     @jwt_required
+    @cross_origin()
     def delete(self):
         user_uid = get_jwt_identity()
         user = db.session.query(User).filter_by(uid=user_uid).first()
@@ -89,6 +92,7 @@ class AuthLoginResource(Resource):
 
 
 class AuthRegisterResource(Resource):
+    @cross_origin()
     def post(self):
         user = request.get_json()
         try:
@@ -120,6 +124,7 @@ class AuthRegisterResource(Resource):
 
 
 class AuthForgotPassword(Resource):
+    @cross_origin()
     def post(self):
         try:
             body = request.get_json()
@@ -145,6 +150,7 @@ class AuthForgotPassword(Resource):
         except Exception as e:
             raise InternalServerError
 
+    @cross_origin()
     def get(self):
         try:
             body = request.get_json()
@@ -167,6 +173,7 @@ class AuthForgotPassword(Resource):
 
 
 class AuthResetPassword(Resource):
+    @cross_origin()
     def post(self):
         try:
             body = request.get_json()

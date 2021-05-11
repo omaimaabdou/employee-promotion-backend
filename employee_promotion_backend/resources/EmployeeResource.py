@@ -8,15 +8,18 @@ from ..models.models import *
 import numpy as np
 from sqlalchemy import asc, desc 
 from sqlalchemy.sql import text
+from flask_cors import cross_origin
 
 class EmployeeResource(Resource):
     @jwt_required
+    @cross_origin()
     def get(self, employee_uid):
         result = db.session.query(Employee).filter_by(uid=employee_uid).first()
         employee = result.to_json()
         return flask.jsonify(data=employee, success=True)
     
     @jwt_required
+    @cross_origin()
     def post(self):
         if not request.is_json or request.content_length >= 50_000_000:
             return flask.make_response(flask.jsonify(success=False, error={"code": 100, "message": "Please send a valid json"}), 400)
@@ -39,6 +42,7 @@ class EmployeeResource(Resource):
         return flask.jsonify(data=employee.to_json(), success=True)
 
     @jwt_required
+    @cross_origin()
     def put(self, employee_uid):
         if not request.is_json or request.content_length >= 50_000_000:
             return flask.make_response(flask.jsonify(success=False, error={"code": 100, "message": "Please send a valid json"}), 400)
@@ -50,6 +54,7 @@ class EmployeeResource(Resource):
         return flask.jsonify(data=employee_uid, success=True, message="employee_updated")
 
     @jwt_required
+    @cross_origin()
     def delete(self, employee_uid: str):
         db.session.query(Employee).filter_by(uid=employee_uid).delete()
         db.session.commit()
@@ -58,6 +63,7 @@ class EmployeeResource(Resource):
 
 class EmployeesResource(Resource):
     @jwt_required
+    @cross_origin()
     def post(self):
         if not request.is_json or request.content_length >= 50_000_000:
             return flask.make_response(flask.jsonify(success=False, error={"code": 100, "message": "Please send a valid json"}), 400)

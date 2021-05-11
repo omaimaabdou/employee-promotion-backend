@@ -12,9 +12,11 @@ from .resources.EmployeeResource import *
 from .resources.UserResource import *
 log.basicConfig(format='%(levelname)s:%(message)s', level=log.DEBUG)
 import datetime
+from flask_cors import CORS, cross_origin
 def _create_app_and_api_objects():
     # load_model()
     app = Flask(__name__)
+    cors = CORS(app)
     app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False    
     app.config['SQLALCHEMY_POOL_RECYCLE'] = 1800    
