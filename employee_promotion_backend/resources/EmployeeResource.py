@@ -32,7 +32,8 @@ class EmployeeResource(Resource):
                                 age=obj.get("age"),
                                 degree=obj.get("degree"),
                                 grade=obj.get("grade"),
-                                grade_seniority=obj.get("grade_seniority"))
+                                grade_seniority=obj.get("grade_seniority"),
+                                entry_date=obj.get("entry_date"))
         except :
             return flask.jsonify(message="Please send all informations", success=False)
         
