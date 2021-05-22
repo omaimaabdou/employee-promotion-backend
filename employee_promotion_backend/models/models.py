@@ -34,7 +34,7 @@ class User(db.Model):
     token = db.Column(db.String(255))
     refresh_token = db.Column(db.String(255))
     created_at = db.Column(db.DateTime(True), default=db.func.now())
-    updated_at = db.Column(db.DateTime(True), default=db.func.now())
+    updated_at = db.Column(db.DateTime(True), default=db.func.now(), onupdate=db.func.now())
 
     def update_user(self, user_uid, new_info):
         user = db.session.query(User).filter_by(uid=user_uid).first()
@@ -57,7 +57,6 @@ class User(db.Model):
         if len(new_info["password"]):
             hashed = bcrypt.hashpw(new_info["password"].encode("utf-8"), bcrypt.gensalt())
             user.password = hashed.decode("utf-8")
-        user.updated_at = db.func.now()
         db.session.commit()
         return {"success": "True", "code": "200", "result": "User updated succesfully"}
 
@@ -104,7 +103,7 @@ class Employee(db.Model):
     grade = db.Column(db.String(255))
     grade_seniority = db.Column(db.Integer)
     created_at = db.Column(db.DateTime(True), default=db.func.now())
-    updated_at = db.Column(db.DateTime(True), default=db.func.now())
+    updated_at = db.Column(db.DateTime(True), default=db.func.now(), onupdate=db.func.now())
 
     def to_json(self):
         return {"user_uid": self.uid,
